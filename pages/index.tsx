@@ -6,6 +6,7 @@ import TodoList from '../components/TodoList'
 import Todo from '../components/Todo'
 import { TodoItem } from '../types/interfaces'
 import axios from 'axios'
+import { uuid } from 'uuidv4'
 
 const Home: NextPage = () => {
 
@@ -35,6 +36,16 @@ const Home: NextPage = () => {
   // Todo handling functions
   const addTodoItem = (description: string) => {
 
+    if (description === "") return
+
+    let newItem = {
+      id: uuid(),
+      description: description,
+      isDone: false
+    }
+
+    // console.log("added", newItem)
+    setTodoItemList([...todoItemList, newItem])
   }
 
   const filterTodoItems = (todoItems: TodoItem[], filterType: string) => {
@@ -69,7 +80,7 @@ const Home: NextPage = () => {
           Todo List
         </h1>
 
-        <AddTodoForm />
+        <AddTodoForm addTodoItem={addTodoItem} />
 
         <TodoList>
 
