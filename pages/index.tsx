@@ -54,14 +54,48 @@ const Home: NextPage = () => {
 
   const editTodoItemDescription = (id: string, description: string) => {
 
+    let todoItem = todoItemList.find(todo => todo.id === id)
+
+    if (todoItem) {
+
+      let newTodoItem: TodoItem = {
+        id: todoItem.id,
+        description: description,
+        isDone: todoItem.isDone
+      }
+
+      let filteredTodoItemList = todoItemList.filter(todo => todo.id !== id)
+      let newTodoItemList = [...filteredTodoItemList, newTodoItem]
+
+      setTodoItemList(newTodoItemList)
+    }
+
   }
 
   const toggleTodoItemDone = (id: string) => {
 
+    console.log('toggleDone', id)
+    let todoItem = todoItemList.find(todo => todo.id === id)
+
+    if (todoItem) {
+
+      let newTodoItem: TodoItem = {
+        id: todoItem.id,
+        description: todoItem.description,
+        isDone: !todoItem.isDone
+      }
+
+      let filteredTodoItemList = todoItemList.filter(todo => todo.id !== id)
+      let newTodoItemList = [...filteredTodoItemList, newTodoItem]
+
+      setTodoItemList(newTodoItemList)
+    }
+
   }
 
   const removeTodoItem = (id: string) => {
-
+    let newTodoArray = todoItemList.filter(todo => todo.id !== id)
+    setTodoItemList(newTodoArray)
   }
 
 
@@ -82,23 +116,25 @@ const Home: NextPage = () => {
 
         <AddTodoForm addTodoItem={addTodoItem} />
 
-        <TodoList>
+        {todoItemList.length > 0 &&
+          <TodoList>
 
-          {todoItemList.map((todo: TodoItem, index: number) => {
-            return (
-              <Todo 
-                key={index}
-                id={todo.id}
-                description={todo.description}
-                isDone={todo.isDone}
-                editTodoItemDescription={editTodoItemDescription}
-                toggleTodoItemDone={toggleTodoItemDone}
-                removeTodoItem={removeTodoItem}
-              />
-            )
-          })}
+            {todoItemList.map((todo: TodoItem, index: number) => {
+              return (
+                <Todo 
+                  key={index}
+                  id={todo.id}
+                  description={todo.description}
+                  isDone={todo.isDone}
+                  editTodoItemDescription={editTodoItemDescription}
+                  toggleTodoItemDone={toggleTodoItemDone}
+                  removeTodoItem={removeTodoItem}
+                />
+              )
+            })}
 
-        </TodoList>
+          </TodoList>
+        }
 
       </main>
 

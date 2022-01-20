@@ -8,13 +8,14 @@
 .Todo-Check {
     @apply
         pl-4
+        transform scale-150
     !important;
 }
 
 .Todo-Description {
     @apply
         flex-grow
-        pl-4 text-xl
+        pl-6 text-xl
     !important;
 }
 
@@ -26,5 +27,24 @@
         w-10 h-10
         cursor-pointer
         m-2
+    !important;
+}
+
+.Todo-input {
+    @apply
+        w-full
+        p-2
+    !important;
+}
+
+.Todo-input:focus {
+    @apply
+        border border-gray-200
+    !important;
+}
+
+.cross-out {
+    @apply
+        line-through
     !important;
 }
