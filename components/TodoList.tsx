@@ -7,9 +7,7 @@ interface TodoListProps {
 const TodoList = (props: TodoListProps) => {
 
     return (
-        <div className={`card`}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
+        <div className={`Todo-List-card`}>
 
             {props.children}
 

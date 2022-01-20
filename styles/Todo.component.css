@@ -1,0 +1,30 @@
+.Todo {
+    @apply
+        flex flex-row w-full justify-between
+        items-center   
+    !important;
+}
+
+.Todo-Check {
+    @apply
+        pl-4
+    !important;
+}
+
+.Todo-Description {
+    @apply
+        flex-grow
+        pl-4 text-xl
+    !important;
+}
+
+.Todo-Delete {
+    @apply
+        text-3xl text-center text-white
+        rounded-full
+        bg-gradient-to-br from-red-500 to-red-700
+        w-10 h-10
+        cursor-pointer
+        m-2
+    !important;
+}
