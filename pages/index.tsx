@@ -48,15 +48,33 @@ const Home: NextPage = () => {
   const filterTodoItems = (todoItems: TodoItem[], filterType: string): TodoItem[] => {
     switch(filterType) {
       case "open": {
-        return todoItems.filter(todo => !todo.isDone)
+        return sortTodoItems(
+          todoItems.filter(todo => !todo.isDone)
+        )
       }
       case "done": {
-        return todoItems.filter(todo => todo.isDone)
+        return sortTodoItems(
+          todoItems.filter(todo => todo.isDone)
+        )
       }
       default: {
-        return todoItems
+        return sortTodoItems(todoItems)
       }
     }
+  }
+
+  const sortTodoItems = (todoItems: TodoItem[]): TodoItem[] => {
+
+    return todoItems.sort((a, b) => {
+      let descriptionOfItemA = a.description
+      let descriptionOfItemB = b.description
+      return (descriptionOfItemA < descriptionOfItemB) 
+        ? -1 
+        : (descriptionOfItemA > descriptionOfItemB) 
+          ? 1 
+          : 0
+    })
+
   }
 
   const editTodoItemDescription = (id: string, description: string) => {
