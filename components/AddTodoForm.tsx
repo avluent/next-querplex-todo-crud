@@ -12,7 +12,7 @@ const AddTodoForm = (props: AddTodoFormProps) => {
             <input 
                 type="text"
                 aria-label='AddTodo'
-                value={`What needs to get done`}
+                defaultValue={`What needs to get done`}
             />
 
             <button
