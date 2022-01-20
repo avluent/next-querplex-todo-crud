@@ -1,6 +1,6 @@
 .Todo-List-card {
     @apply
-        m-1 p-1.5
+        m-0 p-1.5
         text-left
         border border-gray-200 rounded-lg
         shadow-lg

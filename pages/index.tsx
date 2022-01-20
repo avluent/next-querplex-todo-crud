@@ -7,15 +7,12 @@ import Todo from '../components/Todo'
 import { TodoItem } from '../types/interfaces'
 import axios from 'axios'
 import { uuid } from 'uuidv4'
+import Filter from '../components/Filter'
 
 const Home: NextPage = () => {
 
   const [ todoItemList, setTodoItemList ] = useState<TodoItem[]>([])
-
-  enum FilterEnum {
-    'open' = 'open',
-    'done' = 'done'
-  }
+  const [ currentFilter, setCurrentFilter ] = useState<string>("")
 
   // make single call to api to fetch todos
   useEffect(() => {
@@ -48,8 +45,18 @@ const Home: NextPage = () => {
     setTodoItemList([...todoItemList, newItem])
   }
 
-  const filterTodoItems = (todoItems: TodoItem[], filterType: string) => {
-
+  const filterTodoItems = (todoItems: TodoItem[], filterType: string): TodoItem[] => {
+    switch(filterType) {
+      case "open": {
+        return todoItems.filter(todo => !todo.isDone)
+      }
+      case "done": {
+        return todoItems.filter(todo => todo.isDone)
+      }
+      default: {
+        return todoItems
+      }
+    }
   }
 
   const editTodoItemDescription = (id: string, description: string) => {
@@ -98,6 +105,14 @@ const Home: NextPage = () => {
     setTodoItemList(newTodoArray)
   }
 
+  const setFilter = (filter: string) => {
+    setCurrentFilter(filter)
+  }
+
+  useEffect(() => {
+    console.log(currentFilter)
+  }, [currentFilter])
+
 
   return (
     <div className={`container`}>
@@ -116,10 +131,15 @@ const Home: NextPage = () => {
 
         <AddTodoForm addTodoItem={addTodoItem} />
 
-        {todoItemList.length > 0 &&
+        <Filter
+          currentFilter={currentFilter}
+          setFilter={setFilter}
+        />
+
+        {filterTodoItems(todoItemList, currentFilter).length > 0 &&
           <TodoList>
 
-            {todoItemList.map((todo: TodoItem, index: number) => {
+            {filterTodoItems(todoItemList, currentFilter).map((todo: TodoItem, index: number) => {
               return (
                 <Todo 
                   key={index}
